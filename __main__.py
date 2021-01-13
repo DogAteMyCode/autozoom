@@ -20,13 +20,13 @@ except ValueError:
     pass
 if v:
     if sys.platform == "darwin":
-        os.system("open "+location.replace("__main__.py", "")+ '/' + "schedule.csv -W")
+        os.system("open "+location.replace("__main__.py", "") + "schedule.csv -W")
     else:
         print("only works in OS X")
 print("Started")
 
 
-f = open(location.replace("__main__.py", "")+ '/' + "schedule.csv", "r+")
+f = open(location.replace("__main__.py", "")+ + "schedule.csv", "r+")
 dayDictionary = {"Date": "Empty"}
 for line in f.readlines():
     if line.lower().startswith("date"):
