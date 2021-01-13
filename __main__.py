@@ -26,7 +26,7 @@ if v:
 print("Started")
 
 
-f = open(location.replace("__main__.py", "")+ + "schedule.csv", "r+")
+f = open(location.replace("__main__.py", "") + "schedule.csv", "r+")
 dayDictionary = {"Date": "Empty"}
 for line in f.readlines():
     if line.lower().startswith("date"):
