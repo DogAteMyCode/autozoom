@@ -1,46 +1,32 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import os
 import sys
-import logging
-logging.basicConfig(level=logging.INFO, format="'%(asctime)s %(message)")
-def say(msg):
-    logging.info(msg)
-
 try:
     import keyboard
     import datetime
     import pyperclip
     from time import sleep
-    from elevate import elevate
 except ModuleNotFoundError:
-    import subprocess
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", "keyboard", "datetime", "pyperclip", "elevate", "--user"])
-    import keyboard
-    import datetime
-    import pyperclip
-    from time import sleep
-    from elevate import elevate
-elevate()
+    os.system("/usr/bin/pip3 install keyboard datetime pyperclip time --user")
+
 location = sys.argv[0]
 os.system("clear")
-say("If you want to add your schedule run with the -v flag \nto stop excecution use ^c (control+c) \n")
+print("si quieres añadir tu horario abre el .csv o corre con -v \npara parar usa ^c (control+c) en la terminal\nrecuerda que el programa solo iniciara cuando cierres completamente tu editor de tablas")
 try:
     sys.argv.index("-v")
     v = True
-    say(
-        "Remember that the module will only start after you completely close the .csv editor\nThis module stores your shedule in .csv format, save the in csv format")
 except ValueError:
     v = False
     pass
 if v:
     if sys.platform == "darwin":
-        os.system("open " + location.replace("__main__.py", "") + '/' + "schedule.csv -W")
+        os.system("open "+location.replace("__main__.py", "")+ '/' + "schedule.csv -W")
     else:
-        say("only works in OS X")
-say("Started")
+        print("only works in OS X")
+print("Started")
 
-f = open(location.replace("__main__.py", "") + '/' + "schedule.csv", "r+")
+
+f = open(location.replace("__main__.py", "")+ '/' + "schedule.csv", "r+")
 dayDictionary = {"Date": "Empty"}
 for line in f.readlines():
     if line.lower().startswith("date"):
@@ -70,9 +56,9 @@ while True:
         except KeyboardInterrupt:
             sys.exit(0)
     try:
-        say(meetingSchedule[day][date.hour])
-        say(day)
-        say(date.hour)
+        print(meetingSchedule[day][date.hour])
+        print(day)
+        print(date.hour)
         if meetingSchedule[day][date.hour] != "":
             os.system("open -a /Applications/zoom.us.app &")
             sleep(1)
@@ -83,13 +69,13 @@ while True:
             sleep(1)
             pyperclip.copy(meetingSchedule[day][date.hour])
             keyboard.write(meetingSchedule[day][date.hour])
-            say(meetingSchedule[day][date.hour])
+            print(meetingSchedule[day][date.hour])
             if meetingSchedule[day][date.hour] == "":
-                say("Nada")
+                print("Nada")
             keyboard.press_and_release('enter')
             sleep(2400)
         else:
-            say("Skipped")
+            print("Skipped")
     except IndexError:
-        say("Skipped")
+        print("Skipped")
         pass
