@@ -15,6 +15,7 @@ to edit the schedule in csv format.
 
 Do note that this module only works on mac os
 
-##Install
+## Install
+
 ```
 pip install autozoom
