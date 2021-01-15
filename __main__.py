@@ -45,6 +45,8 @@ while True:
         sleep(60)
         now = datetime.datetime.now()
         hour = now.strftime('%H:%M')
+        if hour.startswith("0"):
+            hour = hour.replace("0", "", 1)
         hour_classes = hour_dict.get(hour, "")
         if hour_classes != "":
             meetCode = (hour_classes[now.weekday()])
