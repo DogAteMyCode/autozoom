@@ -45,7 +45,6 @@ while True:
         sleep(60)
         now = datetime.datetime.now()
         hour = now.strftime('%H:%M')
-        print(hour)
         hour_classes = hour_dict.get(hour, "")
         if hour_classes != "":
             meetCode = (hour_classes[now.weekday()])
@@ -53,7 +52,7 @@ while True:
 
     print(meetCode)
     os.system("open -a /Applications/zoom.us.app &")
-    sleep(1)
+    sleep(2)
     keyboard.press_and_release('command+j')
     sleep(1)
     keyboard.press_and_release('command+a')
