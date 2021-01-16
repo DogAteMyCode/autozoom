@@ -5,9 +5,9 @@ try:
     import keyboard
     import datetime
     import pyperclip
-    from time import sleep
+    import time
 except ModuleNotFoundError:
-    os.system("/usr/bin/pip3 install keyboard datetime pyperclip time --user")
+    os.system("/usr/bin/pip3 install keyboard datetime pyperclip --user")
 
 location = sys.argv[0]
 os.system("clear")
@@ -42,7 +42,7 @@ for column in columns:
     hour_dict[column.pop(0)] = column
 while True:
     while True:
-        sleep(60)
+        time.sleep(60)
         now = datetime.datetime.now()
         hour = now.strftime('%H:%M')
         if hour.startswith("0"):
@@ -54,12 +54,12 @@ while True:
 
     print(meetCode)
     os.system("open -a /Applications/zoom.us.app &")
-    sleep(2)
+    time.sleep(2)
     keyboard.press_and_release('command+j')
-    sleep(1)
+    time.sleep(1)
     keyboard.press_and_release('command+a')
     keyboard.press_and_release('delete')
-    sleep(1)
+    time.sleep(1)
     pyperclip.copy(meetCode)
     keyboard.write(meetCode)
     keyboard.press_and_release('enter')
