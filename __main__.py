@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 import os
 import sys
-try:
-    import keyboard
-    import datetime
-    import pyperclip
-    import time
-except ModuleNotFoundError:
-    os.system("/usr/bin/pip3 install keyboard datetime pyperclip --user")
+import time
+import keyboard
+import datetime
+import pyperclip
 
 location = sys.argv[0]
 os.system("clear")
