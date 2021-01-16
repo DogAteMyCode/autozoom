@@ -8,6 +8,14 @@ import pyperclip
 
 location = sys.argv[0]
 os.system("clear")
+
+if not os.path.isfile(location.replace("__main__.py", "") + "schedule.csv"):
+    with open(location.replace("__main__.py", "") + "schedule.csv", "w+") as f:
+        import requests
+        schedule = requests.get("https://raw.githubusercontent.com/DogAteMyCode/autozoom/master/schedule.csv").text
+        f.write(schedule)
+
+
 print("If you want to add your schedule run with -v flag\nto stop use ^c (control+c) keyboardInterrupt\n")
 try:
     sys.argv.index("-v")
@@ -47,7 +55,8 @@ while True:
         hour_classes = hour_dict.get(hour, "")
         if hour_classes != "":
             meetCode = (hour_classes[now.weekday()])
-            break
+            if meetCode != "":
+                break
 
     print(meetCode)
     os.system("open -a /Applications/zoom.us.app &")
