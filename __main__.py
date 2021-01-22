@@ -14,7 +14,28 @@ if not os.path.isfile(location.replace("__main__.py", "") + "schedule.csv"):
         import requests
         schedule = requests.get("https://raw.githubusercontent.com/DogAteMyCode/autozoom/master/schedule.csv").text
         f.write(schedule)
+def print_schedule():
+    from texttable import Texttable
+    location_inner = sys.argv[0].replace(__name__, "").strip(".py")
+    with open(location_inner + "schedule.csv", "r") as csvfile:
+        csvTable = []
+        for row in csvfile.read().split("\n"):
+            csvTable.append(row.split(","))
+    tableList = []
+    colsDType = []
+    colSize = []
+    table = Texttable()
+    for column in csvTable[0]:
+        colsDType.append('t')
+        colSize.append(10)
+    table.set_cols_dtype(colsDType)
+    table.set_cols_width(colSize)
+    table.set_max_width(400)
 
+    for row in csvTable:
+        table.add_row(row)
+
+    print(table.draw())
 
 print("If you want to add your schedule run with -v flag\nto stop use ^c (control+c) keyboardInterrupt\n")
 try:
@@ -30,7 +51,7 @@ if v:
     else:
         print("only works in OS X")
 print("Started")
-
+print_schedule()
 
 with open(location.replace("__main__.py", "") + "schedule.csv", "r+") as f:
     rows = [row.strip('\n').split(",") for row in f.readlines()]
@@ -58,6 +79,8 @@ while True:
             if meetCode != "":
                 break
 
+    os.system("clear")
+    print("If you want to add your schedule run with -v flag\nto stop use ^c (control+c) keyboardInterrupt\n")
     print(meetCode)
     os.system("open -a /Applications/zoom.us.app &")
     time.sleep(2)
